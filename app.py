@@ -43,7 +43,7 @@ dynamodb_client = boto3.client('dynamodb', region_name='eu-west-3')
 def index():
     return 'Ok'
 
-@app.route(f'/{TELEGRAM_TOKEN}/', methods=['POST'])
+@app.route(f'/ibraheemg-polybot/{TELEGRAM_TOKEN}/', methods=['POST'])
 def webhook():
     req = request.get_json()
     bot.handle_message(req['message'])
