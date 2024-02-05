@@ -25,32 +25,9 @@ spec:
             limits:
               memory: "150Mi"        # Memory limit for the container
               cpu: "100m"            # CPU limit for the container
-          env:
-            - name: BUCKET_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: ibraheemg-secrets
-                  key: BUCKET_NAME     # Environment variable for bucket name
-            - name: TELEGRAM_APP_URL
-              valueFrom:
-                secretKeyRef:
-                  name: ibraheemg-secrets
-                  key: TELEGRAM_APP_URL   # Environment variable for Telegram app URL
-            - name: REGION
-              valueFrom:
-                secretKeyRef:
-                  name: ibraheemg-secrets
-                  key: REGION            # Environment variable for region
-            - name: QUEUE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: ibraheemg-secrets
-                  key: QUEUE_URL         # Environment variable for queue URL
-            - name: DYNAMO_TBL
-              valueFrom:
-                secretKeyRef:
-                  name: ibraheemg-secrets
-                  key: DYNAMO_TBL       # Environment variable for DynamoDB table
+          envFrom:
+          - secretRef:
+              name: ibraheemg-polybot-secrets
           # Add liveness and readiness probes
           livenessProbe:
             httpGet:
@@ -89,7 +66,8 @@ spec:
   tls:
     - hosts:
         - bot.atech-bot.click          # Hosts for which TLS should be enabled
-      secretName: tls-ibraheemg-secret # Secret containing TLS certificate and key
+      secretName: tls-secret           # Secret containing TLS certificate and key
+      # secretName: tls-ibraheemg-secret # Secret containing TLS certificate and key
   rules:
     - host: bot.atech-bot.click        # Host for which the rules apply
       http:

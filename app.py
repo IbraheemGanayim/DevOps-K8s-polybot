@@ -11,7 +11,7 @@ app = flask.Flask(__name__)
 # TODO load TELEGRAM_TOKEN value from Secret Manager
 def load_telegram_token():
     secret_name = "batman-telegram-token"
-    region_name = "eu-west-3"
+    region_name = "eu-east-1"
 
     # Create a Secrets Manager client
     session = boto3.session.Session()
@@ -37,7 +37,7 @@ TELEGRAM_TOKEN = json.loads(TeleToken)['TELEGRAM_TOKEN']
 TELEGRAM_APP_URL = os.environ['TELEGRAM_APP_URL']
 
 # Create a DynamoDB client
-dynamodb_client = boto3.client('dynamodb', region_name='eu-west-3')
+dynamodb_client = boto3.client('dynamodb', region_name='eu-east-1')
 
 @app.route('/', methods=['GET'])
 def index():

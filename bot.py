@@ -108,7 +108,7 @@ class ObjectDetectionBot(Bot):
                     'chat_id': msg['chat']['id']
                 }
                 try:
-                    sqs_client = self.session.client('sqs', region_name='eu-west-3')
+                    sqs_client = self.session.client('sqs', region_name='eu-east-1')
                     response = sqs_client.send_message(
                         QueueUrl=queue_url,
                         MessageBody=json.dumps(message_body)
@@ -135,7 +135,7 @@ class ObjectDetectionBot(Bot):
         return formatted_string
 
     def get_item_by_prediction_id(self, prediction_id):
-        dynamodb_client = self.session.client('dynamodb', region_name='eu-west-3')
+        dynamodb_client = self.session.client('dynamodb', region_name='eu-east-1')
         dynamo_tbl = 'ibraheemg-dynamodb-table'
         try:
             response = dynamodb_client.get_item(
